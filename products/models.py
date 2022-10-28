@@ -22,7 +22,7 @@ class Product(models.Model):
         CustomUser, on_delete=models.CASCADE)
 
 
-class ProductFiles(models.Model):
+class ProductFile(models.Model):
     product_file_id = models.IntegerField(primary_key=True)
     product_file_name = models.CharField(max_length=200)
     product_file_image = models.ImageField(to="product")
