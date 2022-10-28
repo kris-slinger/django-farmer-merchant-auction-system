@@ -1,5 +1,5 @@
 from django.db import models
-from choices.roleChoices import USER_ROLES
+from choices.choices import USER_ROLES
 
 
 class CustomUser():
