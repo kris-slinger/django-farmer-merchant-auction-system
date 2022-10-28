@@ -3,7 +3,7 @@ from django.db import models
 from ..users.models import CustomUser
 
 
-class Reviews(models.Model):
+class Review(models.Model):
     review_id = models.CharField(primary_key=True)
     review_rating = models.IntegerField(choices=[0, 1, 2, 3, 4, 5])
     review_message = models.CharField(max_length=300, blank=True)
