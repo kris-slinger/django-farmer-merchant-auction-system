@@ -3,8 +3,18 @@ USER_ROLES = [
     ('Fm', 'Farmer'),
     ('Mt', 'Merchant')
 ]
-CATEGORY_CHOICES = [
+PRODUCT_CATEGORY_CHOICES = [
+    ('LS', 'Liverstock'),
+    ('MC', 'Merchinery'),
+    ('FS', 'FoodStuff')
+]
+PRODUCT_FILE_TYPE = [
+    ('VD', 'Video'),
+    ('PP', 'Picture')
+]
+ORDER_STATUS_CHOICES = [
+    ('P', 'pending'),
+    ('A', 'success'),
+    ('D', 'declined')
 
 ]
-PRODUCT_FILE_TYPE = []
-ORDER_CHOICES = []
