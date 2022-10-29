@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser
 from choices.choices import USER_ROLES
 
 
@@ -9,9 +9,10 @@ This is why they have not been included in the Custom user model.
 '''
 
 
-class CustomUser(AbstractUser):
+class CustomUser(AbstractBaseUser):
     user_id = models.AutoField(primary_key=True)
-
+    user_name=models.CharField(max_length=200)
+    user_password=models.CharField(max_length=200)
     user_national_id = models.IntegerField(default=0)
     user_phone = models.CharField(max_length=100, default=" ")
     user_role = models.CharField(

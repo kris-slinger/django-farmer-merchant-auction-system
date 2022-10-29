@@ -9,4 +9,7 @@ class Chat(models.Model):
         Merchant, on_delete=models.CASCADE)
     chat_user_farmer_id = models.ForeignKey(
         Farmer, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.chat_user_farmer_id} - {self.chat_user_merchant_id}"
 # Create your models here.

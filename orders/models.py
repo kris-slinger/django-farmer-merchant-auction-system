@@ -17,4 +17,7 @@ class Order(models.Model):
     order_product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
     order_user_merchant_id = models.ForeignKey(
         Farmer, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.order_name
 # Create your models here.
