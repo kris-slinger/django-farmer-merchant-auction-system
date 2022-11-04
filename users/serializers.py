@@ -1,16 +1,23 @@
 from dataclasses import fields
 from rest_framework import serializers
-from users.models import CustomUser, Farmer, Merchant
-
-
+from users.models import CustomUser, Merchant, Farmer
+from rest_framework.validators import UniqueValidator
 
 # TODO: use a normal serializer here so as to represent your email as user_email etc
-class CustomUserSerializer(serializers.ModelSerializer):
 
+
+class CustomUserSerializer(serializers.ModelSerializer):
+    user_id = serializers.IntegerField(source="id", read_only=True)
+    user_email = serializers.EmailField(max_length=254, validators=[UniqueValidator(
+        queryset=CustomUser.objects.all())], source="email")
+    user_name = serializers.CharField(max_length=200, validators=[UniqueValidator(
+        queryset=CustomUser.objects.all())], source="username")
+    user_password = serializers.CharField(
+        max_length=200, write_only=True, source="password")
     class Meta:
         model = CustomUser
-        fields = ['user_id', 'email', 'username',
-                  'user_national_id', 'user_phone', 'user_role', 'password']
+        fields = ['user_id', 'user_email', 'user_name',
+                  'user_national_id', 'user_phone', 'user_role', 'user_password']
         extra_kwargs = {
             'password': {'write_only': True}
         }
@@ -20,13 +27,18 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 
 class FarmerSerializer(serializers.ModelSerializer):
-    farmer_user_id = CustomUserSerializer()
+    # farmer_user_id = CustomUserSerializer()
 
     class Meta:
         model = Farmer
-        fields = ['farmer_id', 'farmer_user_id']
+        fields = '__all__'
 
 
 class MerchantSerializer(serializers.ModelSerializer):
-    model = Merchant
-    fields = ['merchant_id', 'merchant_user_id']
+    # merchant_user_id = CustomUserSerializer()
+
+    class Meta:
+        model = Merchant
+        fields = ['merchant_id', 'merchant_user_id']
+
+    # def get_accounts_items
