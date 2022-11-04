@@ -1,7 +1,7 @@
 
 USER_ROLES = [
     ('Fm', 'Farmer'),
-    ('Mt', 'Merchant')
+    ('Mt', 'Merchant'),
 ]
 PRODUCT_CATEGORY_CHOICES = [
     ('LS', 'Liverstock'),
