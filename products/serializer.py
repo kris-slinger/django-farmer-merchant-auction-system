@@ -18,12 +18,12 @@ class ProductFileSerializer(ModelSerializer):
 
 
 class ProductSerializer(ModelSerializer):
+    # product_category_id = ProductCategorySerializer()
+    # product_product_file_id = ProductFileSerializer()
+    # product_farmer_id = FarmerSerializer()
     class Meta:
-        product_category_id = ProductCategorySerializer()
-        product_product_file_id = ProductFileSerializer()
-        product_farmer_id = FarmerSerializer()
         model = Product
-        fields = ['product_name', 'product_price', 'product_location', 'product_description',
+        fields = ['product_id','product_name', 'product_price', 'product_location', 'product_description',
                   'product_category_id', 'product_product_file_id', 'product_farmer_id']
 
     def create(self, validated_data):
