@@ -13,8 +13,8 @@ PRODUCT_FILE_TYPE = [
     ('PP', 'Picture')
 ]
 ORDER_STATUS_CHOICES = [
-    ('P', 'pending'),
-    ('A', 'success'),
-    ('D', 'declined')
+    ('pending', 'pending'),
+    ('success', 'success'),
+    ('declined', 'declined')
 
 ]
