@@ -24,9 +24,11 @@ from rest_framework.schemas import get_schema_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include("auth.urls")),
-    path('users/', include("users.urls")),
+    # path('users/', include("users.urls")),
     path('docs/', include_docs_urls(title="Farmer merchant auction system")),
     path('products/', include("products.urls")),
+    path('orders/', include("orders.urls")),
+    path('reviews/', include("reviews.urls")),
     path('schema/', get_schema_view(
         title='Farmer merchant auction system',
         description='API for all things',
