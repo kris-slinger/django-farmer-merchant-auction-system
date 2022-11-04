@@ -35,7 +35,7 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     list_filter = 'user_role'
-    user_id = models.AutoField(primary_key=True)
+    id = models.AutoField(primary_key=True,db_column='user_id')
     email = models.EmailField(unique=True, db_column="user_email")
     username = models.CharField(
         max_length=200, unique=True, db_column="user_name")
@@ -70,9 +70,9 @@ class Farmer(models.Model):
 
 
 class Merchant(models.Model):
-    farmer_id = models.AutoField(primary_key=True)
+    merchant_id = models.AutoField(primary_key=True)
     merchant_user_id = models.OneToOneField(
         CustomUser, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.merchant_user_id.username
+    
+    # def __str__(self):
+    #     return self.merchant_user_id.username
