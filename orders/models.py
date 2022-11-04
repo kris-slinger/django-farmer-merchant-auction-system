@@ -15,7 +15,7 @@ class Order(models.Model):
     order_creation_date = models.DateField(auto_now_add=True)
     order_expiration_date = models.DateField(blank=True, null=True)
     order_product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
-    order_user_merchant_id = models.ForeignKey(
+    order_merchant_id = models.ForeignKey(
         Farmer, on_delete=models.CASCADE)
 
     def __str__(self):
