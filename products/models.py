@@ -10,8 +10,17 @@ class ProductCategory(models.Model):
         choices=PRODUCT_CATEGORY_CHOICES, max_length=2)
     product_category_description = models.TextField()
 
-    def __str__(self):
-        return f"{self.product_category_name} - {self.product_category_description}"
+    # def __str__(self):
+    #     return f"{self.product_category_name} - {self.product_category_description}"
+
+
+class ProductFile(models.Model):
+    product_file_id = models.AutoField(primary_key=True)
+    product_file_name = models.CharField(max_length=200)
+    product_file_image = models.ImageField(upload_to="product")
+
+    # def __str__(self):
+    #     return f"{self.product_file_name}"
 
 
 class Product(models.Model):
@@ -22,22 +31,14 @@ class Product(models.Model):
     product_description = models.TextField()
     product_category_id = models.OneToOneField(
         ProductCategory, on_delete=models.CASCADE)
-    product_user_farmer_id = models.ForeignKey(
+    product_farmer_id = models.ForeignKey(
         Farmer, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return f"{self.product_name}-{self.product_user_farmer_id}"
+    product_product_file_id = models.OneToOneField(
+        ProductFile, on_delete=models.CASCADE)
 
-
-class ProductFile(models.Model):
-    product_file_id = models.AutoField(primary_key=True)
-    product_file_name = models.CharField(max_length=200)
-    product_file_image = models.ImageField(upload_to="product")
-    product_file_product_id = models.ForeignKey(
-        Product, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.product_file_name}-{self.product_file_product_id}"
+    # def __str__(self):
+    #     return f"{self.product_name}-{self.product_farmer_id}"
 
 
 # Create your models here.
