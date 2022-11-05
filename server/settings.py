@@ -94,8 +94,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         # 'NAME': BASE_DIR / 'db.sqlite3',
         'NAME': 'farmerMerchantAuctionDb',
-        'USER': 'kris',
-        'PASSWORD': 'Cm@postgres',
+        'USER': dotenv_values(".env")["DB_USER"],
+        'PASSWORD': dotenv_values(".env")["DB_PASSWORD"],
         'HOST': 'localhost',
         'PORT': '5432',
     }
