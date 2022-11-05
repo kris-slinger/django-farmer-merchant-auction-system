@@ -2,7 +2,6 @@ from rest_framework import serializers
 from users.models import CustomUser
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
-
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
