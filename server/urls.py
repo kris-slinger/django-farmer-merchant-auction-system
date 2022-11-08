@@ -19,12 +19,12 @@ from django.urls import path, include
 from rest_framework import permissions
 from rest_framework.documentation import include_docs_urls
 from rest_framework.schemas import get_schema_view
-
-
+from django.conf.urls.static import  static
+from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include("auth.urls")),
-    # path('users/', include("users.urls")),
+    path('users/', include("users.urls")),
     path('docs/', include_docs_urls(title="Farmer merchant auction system")),
     path('products/', include("products.urls")),
     path('orders/', include("orders.urls")),
@@ -34,4 +34,4 @@ urlpatterns = [
         description='API for all things',
         version='1.0.0'
     ), name="openapi-schema")
-]
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
