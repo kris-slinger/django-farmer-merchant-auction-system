@@ -1,12 +1,12 @@
 
 USER_ROLES = [
-    ('Fm', 'Farmer'),
-    ('Mt', 'Merchant'),
+    ('farmer', 'Farmer'),
+    ('merchant', 'Merchant'),
 ]
 PRODUCT_CATEGORY_CHOICES = [
-    ('LS', 'Liverstock'),
-    ('MC', 'Merchinery'),
-    ('FS', 'FoodStuff')
+    ('livestock', 'Liverstock'),
+    ('machinery', 'Merchinery'),
+    ('foodstuff', 'FoodStuff')
 ]
 PRODUCT_FILE_TYPE = [
     ('VD', 'Video'),
