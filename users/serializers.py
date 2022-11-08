@@ -3,9 +3,6 @@ from rest_framework import serializers
 from users.models import CustomUser, Merchant, Farmer
 from rest_framework.validators import UniqueValidator
 
-# TODO: use a normal serializer here so as to represent your email as user_email etc
-
-
 class CustomUserSerializer(serializers.ModelSerializer):
     user_id = serializers.IntegerField(source="id", read_only=True)
     user_email = serializers.EmailField(max_length=254, validators=[UniqueValidator(
