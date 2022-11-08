@@ -43,7 +43,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     user_national_id = models.IntegerField(default=0)
     user_phone = models.CharField(max_length=100, default="")
     user_role = models.CharField(
-        max_length=2, choices=USER_ROLES, blank=True)
+        max_length=10, choices=USER_ROLES, blank=True)
     is_superuser = models.BooleanField(
         default=False, db_column="user_is_superuser")
     is_staff = models.BooleanField(
@@ -55,7 +55,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['username','user_phone','user_national_id']
 
     def __str__(self):
         return self.username
@@ -74,5 +74,5 @@ class Merchant(models.Model):
     merchant_user_id = models.OneToOneField(
         CustomUser, on_delete=models.CASCADE)
     
-    # def __str__(self):
-    #     return self.merchant_user_id.username
+    def __str__(self):
+        return self.merchant_user_id.username
