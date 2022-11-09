@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     # extensions
     'rest_framework',
     'rest_framework_simplejwt.token_blacklist',
-    'corsheaders',
+    "corsheaders"
 
 ]
 
@@ -56,6 +56,7 @@ AUTH_USER_MODEL = "users.CustomUser"
 
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -117,7 +118,7 @@ DATABASES = {
 #         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
 #     },
 # ]
-# 
+#
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -179,12 +180,12 @@ CORS_ALLOWED_ORIGINS = ['http://localhost:3000', ]
 
 
 REST_FRAMEWORK = {
-     'DEFAULT_AUTHENTICATION_CLASSES': [
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-    'DEFAULT_SCHEMA_CLASS':'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 
 }
 
