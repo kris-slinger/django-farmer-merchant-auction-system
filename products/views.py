@@ -16,7 +16,6 @@ class ProductCategoryView(APIView):
     def get(self, request):
         queryset = ProductCategory.objects.all()
         serializer = ProductCategorySerializer(queryset, many=True)
-        # print(serializer.)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
