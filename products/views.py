@@ -7,12 +7,13 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 from django.http import Http404
-from permissions.permissions import  IsFarmerOrReadOnly
+from permissions.permissions import IsFarmerOrReadOnly
 from users.models import Farmer
 
 
 class ProductCategoryView(APIView):
-    permission_classes = [IsAuthenticated,IsFarmerOrReadOnly]
+    permission_classes = [IsAuthenticated, IsFarmerOrReadOnly]
+
     def get(self, request):
         queryset = ProductCategory.objects.all()
         serializer = ProductCategorySerializer(queryset, many=True)
@@ -27,7 +28,8 @@ class ProductCategoryView(APIView):
 
 
 class ProductFileView(APIView):
-    permission_classes = [IsAuthenticated,IsFarmerOrReadOnly]
+    permission_classes = [IsAuthenticated, IsFarmerOrReadOnly]
+
     def get(self, request):
         queryset = ProductFile.objects.all()
         serializer = ProductFileSerializer(queryset, many=True)
@@ -42,10 +44,11 @@ class ProductFileView(APIView):
 
 
 class ProductFileDetailView(APIView):
-    permission_classes = [IsAuthenticated,IsFarmerOrReadOnly]
+    permission_classes = [IsAuthenticated, IsFarmerOrReadOnly]
+
     def get_object(self, pk):
         try:
-           return ProductFile.objects.get(product_file_id=pk)
+            return ProductFile.objects.get(product_file_id=pk)
         except ProductFile.DoesNotExist:
             raise Http404
 
@@ -68,7 +71,8 @@ class ProductFileDetailView(APIView):
 
 
 class ProductView(APIView):
-    permission_classes = [IsAuthenticated,IsFarmerOrReadOnly]
+    permission_classes = [IsAuthenticated, IsFarmerOrReadOnly]
+
     def get(self, request):
         queryset = Product.objects.all()
         serializer = ProductSerializer(queryset, many=True)
@@ -77,7 +81,7 @@ class ProductView(APIView):
     def post(self, request):
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
-            farmer_instance=Farmer.objects.get(farmer_user_id=request.user)
+            farmer_instance = Farmer.objects.get(farmer_user_id=request.user)
             serializer.save(product_farmer_id=farmer_instance)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -85,12 +89,12 @@ class ProductView(APIView):
 
 class ProductDetailView(APIView):
     permission_classes = [IsAuthenticated, IsFarmerOrReadOnly]
+
     def get_object(self, pk):
         try:
             return Product.objects.get(product_id=pk)
         except Product.DoesNotExist:
             raise Http404
-
 
     def get(self, request, productId):
         query = self.get_object(productId)
