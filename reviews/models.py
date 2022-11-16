@@ -3,6 +3,7 @@ from django.db import models
 
 from users.models import CustomUser
 from users.models import Farmer, Merchant
+from products.models import Product
 
 
 class Review(models.Model):
@@ -11,10 +12,14 @@ class Review(models.Model):
     review_rating = models.IntegerField(
         choices=[(1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')]
     )
+    review_created_at = models.DateField(auto_now_add=True)
     review_merchant_id = models.ForeignKey(
         Merchant, on_delete=models.CASCADE)
-    review_farmer_id = models.ForeignKey(
-        Farmer, on_delete=models.CASCADE)
+    review_product_id = models.ForeignKey(
+        Product, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ["-review_id"]
 
     def __str__(self):
-        return f"{self.review_farmer_id} <-- {self.review_merchant_id}"
+        return f"{self.review_product_id} <-- {self.review_merchant_id}"
