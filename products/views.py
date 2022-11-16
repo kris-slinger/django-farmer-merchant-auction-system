@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import render
 from rest_framework.views import APIView
 from products.models import Product, ProductCategory, ProductFile
@@ -75,15 +76,20 @@ class ProductView(APIView):
 
     def get(self, request):
         queryset = Product.objects.all()
-        serializer = ProductSerializer(queryset, many=True)
+        serializer = ProductSerializer(
+            queryset, many=True, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
+        print(request.data)
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
+            print(serializer.is_valid())
             farmer_instance = Farmer.objects.get(farmer_user_id=request.user)
             serializer.save(product_farmer_id=farmer_instance)
             return Response(serializer.data, status=status.HTTP_200_OK)
+
+        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -98,15 +104,17 @@ class ProductDetailView(APIView):
 
     def get(self, request, productId):
         query = self.get_object(productId)
-        serializer = ProductSerializer(query)
+        serializer = ProductSerializer(query, context={'request': request})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, productId):
+        # print(request.data)
         query = self.get_object(productId)
         serializer = ProductSerializer(query, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
+        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, productId):
