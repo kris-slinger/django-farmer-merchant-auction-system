@@ -19,7 +19,7 @@ from django.urls import path, include
 from rest_framework import permissions
 from rest_framework.documentation import include_docs_urls
 from rest_framework.schemas import get_schema_view
-from django.conf.urls.static import  static
+from django.conf.urls.static import static
 from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,4 +34,5 @@ urlpatterns = [
         description='API for all things',
         version='1.0.0'
     ), name="openapi-schema")
-]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
