@@ -17,7 +17,7 @@ class ProductCategory(models.Model):
 class ProductFile(models.Model):
     product_file_id = models.AutoField(primary_key=True)
     product_file_name = models.CharField(max_length=200)
-    product_file_image = models.ImageField(upload_to="product",blank=True)
+    product_file_image = models.ImageField(upload_to="product", blank=True)
 
     def __str__(self):
         return f"{self.product_file_name}"
@@ -29,6 +29,7 @@ class Product(models.Model):
     product_price = models.DecimalField(max_digits=20, decimal_places=2)
     product_location = models.CharField(max_length=100, null=True)
     product_description = models.TextField()
+    product_created_at = models.DateField(auto_now_add=True)
     product_category_id = models.OneToOneField(
         ProductCategory, on_delete=models.CASCADE)
     product_farmer_id = models.ForeignKey(
@@ -36,6 +37,9 @@ class Product(models.Model):
 
     product_product_file_id = models.OneToOneField(
         ProductFile, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['-product_id']
 
     def __str__(self):
         return f"{self.product_name}-{self.product_farmer_id}"
