@@ -16,10 +16,12 @@ class OrderView(APIView):
 
     def post(self, request):
         serializer = OrderSerializer(data=request.data)
+        print(request.data)
         if serializer.is_valid():
             merchant_instance = Merchant.objects.get(merchant_user_id=request.user)
             serializer.save(order_merchant_id=merchant_instance)
             return Response(serializer.data, status=status.HTTP_200_OK)
+        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class OrderDetailView(APIView):
