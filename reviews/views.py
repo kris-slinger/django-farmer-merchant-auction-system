@@ -2,6 +2,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from django.db.models import Avg
 
 from permissions.permissions import IsMerchantOrReadOnly
 from reviews.models import Review
@@ -13,6 +14,7 @@ from users.models import Merchant
 
 class ReviewView(APIView):
     permission_classes = [IsAuthenticated, IsMerchantOrReadOnly]
+
     def get(self, request):
         queryset = Review.objects.all()
         serializer = ReviewSerializer(queryset, many=True)
@@ -21,11 +23,25 @@ class ReviewView(APIView):
     def post(self, request):
         serializer = ReviewSerializer(
             data=request.data)
+        print(request.data)
         if serializer.is_valid():
-            merchant_instance=Merchant.objects.get(merchant_user_id=request.user)
+            merchant_instance = Merchant.objects.get(
+                merchant_user_id=request.user)
             serializer.save(review_merchant_id=merchant_instance)
+
             return Response(serializer.data, status=status.HTTP_200_OK)
+        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ReviewRating(APIView):
+    def get(self, request):
+        reviewAverage = Review.objects.aggregate(
+            rating=Avg('review_rating'))
+        # x = int(reviewAverage['rating']) if reviewAverage else 10
+        if reviewAverage['rating'] == None:
+            return Response({'rating': 5}, status=status.HTTP_200_OK)
+        return Response({'rating': int(reviewAverage['rating'])}, status=status.HTTP_200_OK)
 
 
 class ReviewDetailView(APIView):
