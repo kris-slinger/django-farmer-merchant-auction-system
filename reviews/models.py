@@ -14,9 +14,9 @@ class Review(models.Model):
     )
     review_created_at = models.DateField(auto_now_add=True)
     review_merchant_id = models.ForeignKey(
-        Merchant, on_delete=models.CASCADE)
+        Merchant, on_delete=models.CASCADE, db_column="review_merchant_id")
     review_product_id = models.ForeignKey(
-        Product, on_delete=models.CASCADE)
+        Product, on_delete=models.CASCADE, db_column="review_product_id")
 
     class Meta:
         ordering = ["-review_id"]
