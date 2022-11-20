@@ -81,7 +81,6 @@ class ProductView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
-        print(request.data)
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
             print(serializer.is_valid())
@@ -120,3 +119,13 @@ class ProductDetailView(APIView):
     def delete(self, request, productId):
         query = self.get_object(productId).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class FarmerSpecificProductView(APIView):
+    def get(self, request):
+        query = Product.objects.filter(
+            product_farmer_id__farmer_user_id=request.user)
+        serializer = ProductSerializer(
+            query, many=True, context={'request': request})
+        print(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
