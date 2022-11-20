@@ -35,7 +35,7 @@ class CustomUserManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     list_filter = 'user_role'
-    id = models.AutoField(primary_key=True,db_column='user_id')
+    id = models.AutoField(primary_key=True, db_column='user_id')
     email = models.EmailField(unique=True, db_column="user_email")
     username = models.CharField(
         max_length=200, unique=True, db_column="user_name")
@@ -55,7 +55,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username','user_phone','user_national_id']
+    REQUIRED_FIELDS = ['username', 'user_phone', 'user_national_id']
 
     def __str__(self):
         return self.username
@@ -63,7 +63,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
 class Farmer(models.Model):
     farmer_id = models.AutoField(primary_key=True)
-    farmer_user_id = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    farmer_user_id = models.OneToOneField(
+        CustomUser, on_delete=models.CASCADE, db_column="farmer_user_id")
 
     def __str__(self):
         return self.farmer_user_id.username
@@ -72,7 +73,7 @@ class Farmer(models.Model):
 class Merchant(models.Model):
     merchant_id = models.AutoField(primary_key=True)
     merchant_user_id = models.OneToOneField(
-        CustomUser, on_delete=models.CASCADE)
-    
+        CustomUser, on_delete=models.CASCADE, db_column="merchant_user_id")
+
     def __str__(self):
         return self.merchant_user_id.username
