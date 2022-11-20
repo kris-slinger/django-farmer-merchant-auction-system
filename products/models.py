@@ -31,12 +31,12 @@ class Product(models.Model):
     product_description = models.TextField()
     product_created_at = models.DateField(auto_now_add=True)
     product_category_id = models.OneToOneField(
-        ProductCategory, on_delete=models.CASCADE)
+        ProductCategory, on_delete=models.CASCADE, db_column="product_category_id")
     product_farmer_id = models.ForeignKey(
-        Farmer, on_delete=models.CASCADE)
+        Farmer, on_delete=models.CASCADE, db_column="product_farmer_id")
 
     product_product_file_id = models.OneToOneField(
-        ProductFile, on_delete=models.CASCADE)
+        ProductFile, on_delete=models.CASCADE, db_column="product_product_file_id")
 
     class Meta:
         ordering = ['-product_id']
