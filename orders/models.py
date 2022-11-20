@@ -18,11 +18,13 @@ class Order(models.Model):
         max_digits=8, decimal_places=2, null=True, blank=True)
     order_creation_date = models.DateField(auto_now_add=True)
     order_expiration_date = models.DateField(blank=True, null=True)
-    order_product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    order_product_id = models.ForeignKey(
+        Product, on_delete=models.CASCADE, db_column="order_product_id")
     order_merchant_id = models.ForeignKey(
-        Merchant, on_delete=models.CASCADE)
-    
+        Merchant, on_delete=models.CASCADE, db_column="order_merchant_id")
+
     class Meta:
         ordering = ["-order_id"]
+
     def __str__(self):
         return self.order_name
