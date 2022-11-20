@@ -23,10 +23,10 @@ class ReviewView(APIView):
     def post(self, request):
         serializer = ReviewSerializer(
             data=request.data)
-        print(request.data)
         if serializer.is_valid():
             merchant_instance = Merchant.objects.get(
                 merchant_user_id=request.user)
+            print(merchant_instance)
             serializer.save(review_merchant_id=merchant_instance)
 
             return Response(serializer.data, status=status.HTTP_200_OK)
@@ -38,7 +38,6 @@ class ReviewRating(APIView):
     def get(self, request):
         reviewAverage = Review.objects.aggregate(
             rating=Avg('review_rating'))
-        # x = int(reviewAverage['rating']) if reviewAverage else 10
         if reviewAverage['rating'] == None:
             return Response({'rating': 5}, status=status.HTTP_200_OK)
         return Response({'rating': int(reviewAverage['rating'])}, status=status.HTTP_200_OK)
@@ -68,3 +67,11 @@ class ReviewDetailView(APIView):
     def delete(self, request, reviewId):
         query = self.get_object(reviewId).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ReceivedFarmerReviewsView(APIView):
+    def get(self, request):
+        query = Review.objects.filter(
+            review_product_id__product_farmer_id__farmer_user_id=request.user)
+        serializer = ReviewSerializer(query, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
