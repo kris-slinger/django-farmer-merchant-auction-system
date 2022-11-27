@@ -4,7 +4,6 @@ from products.serializer import ProductSerializer
 from users.serializers import MerchantSerializer
 
 
-# TODO: calculate order_total_price,order_expiration_date using a signal
 
 class OrderSerializer(serializers.ModelSerializer):
     order_merchant_name = serializers.ReadOnlyField(
