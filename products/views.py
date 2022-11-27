@@ -83,12 +83,10 @@ class ProductView(APIView):
     def post(self, request):
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
-            print(serializer.is_valid())
             farmer_instance = Farmer.objects.get(farmer_user_id=request.user)
             serializer.save(product_farmer_id=farmer_instance)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
-        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -107,13 +105,11 @@ class ProductDetailView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def put(self, request, productId):
-        # print(request.data)
         query = self.get_object(productId)
         serializer = ProductSerializer(query, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
-        print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, productId):
@@ -127,5 +123,4 @@ class FarmerSpecificProductView(APIView):
             product_farmer_id__farmer_user_id=request.user)
         serializer = ProductSerializer(
             query, many=True, context={'request': request})
-        print(serializer.data)
         return Response(serializer.data, status=status.HTTP_200_OK)
