@@ -20,6 +20,7 @@ class Review(models.Model):
 
     class Meta:
         ordering = ["-review_id"]
+        db_table="Review"
 
     def __str__(self):
         return f"{self.review_product_id} <-- {self.review_merchant_id}"
