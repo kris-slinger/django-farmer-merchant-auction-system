@@ -60,6 +60,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.username
 
+    class Meta:
+        db_table = "User"
+
 
 class Farmer(models.Model):
     farmer_id = models.AutoField(primary_key=True)
@@ -69,6 +72,9 @@ class Farmer(models.Model):
     def __str__(self):
         return self.farmer_user_id.username
 
+    class Meta:
+        db_table = "Farmer"
+
 
 class Merchant(models.Model):
     merchant_id = models.AutoField(primary_key=True)
@@ -77,3 +83,6 @@ class Merchant(models.Model):
 
     def __str__(self):
         return self.merchant_user_id.username
+
+    class Meta:
+        db_table = "Merchant"

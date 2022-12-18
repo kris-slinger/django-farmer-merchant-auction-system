@@ -13,6 +13,9 @@ class ProductCategory(models.Model):
     def __str__(self):
         return f"{self.product_category_name} - {self.product_category_description}"
 
+    class Meta:
+        db_table = "ProductCategory"
+
 
 class ProductFile(models.Model):
     product_file_id = models.AutoField(primary_key=True)
@@ -21,6 +24,9 @@ class ProductFile(models.Model):
 
     def __str__(self):
         return f"{self.product_file_name}"
+
+    class Meta:
+        db_table = "ProductFile"
 
 
 class Product(models.Model):
@@ -40,6 +46,7 @@ class Product(models.Model):
 
     class Meta:
         ordering = ['-product_id']
+        db_table="Product"
 
     def __str__(self):
         return f"{self.product_name}-{self.product_farmer_id}"

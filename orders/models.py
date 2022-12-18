@@ -25,6 +25,7 @@ class Order(models.Model):
 
     class Meta:
         ordering = ["-order_id"]
+        db_table = "Order"
 
     def __str__(self):
         return self.order_name
